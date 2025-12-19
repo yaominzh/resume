@@ -912,63 +912,16 @@
 <p><strong>Category</strong>: Development<br />
 <strong>Context</strong>: Activate Experts (AE) has a <strong>$250M</strong> goal. AE is a key driver of the Assisted services input goal. Activate Experts markets FS Experts and offerings in local keyword search ("Taxes near me") across a variety of digital and physical channels (Google maps listings, paid search, digital media, mail, billboards, etc.). Local search is enabled by our planned retail footprint of 500 physical locations. Building data pipelines for the Activate Experts initiative to support expert-customer matching and engagement analytics. This involves designing fact tables for assignment, engagement, and appointment data across the tax expert ecosystem.<br />
 <strong>Outcome</strong>: Production-ready data pipelines powering Activate Experts dashboards and reporting.</p>
-<pre class="mermaid"><code>flowchart TB
-    subgraph SG["SuperGlue Pipeline"]
-        PIPELINE[["AE Pipeline"]]
-    end
-
-    subgraph L1["Layer 1: Source Tables"]
-        LIFECYCLE[["dw_expert_lifecycle"]]
-        ASSIGNMENT_SRC[["dw_expert_assignment_summary"]]
-        DIM_ENG[["dim_engagement"]]
-        APPT_FUNNEL[["rpt_appointment_funnel"]]
-    end
-
-    subgraph L2["Layer 2: Expert Dimension"]
-        SG210["210-activate_expert_master.py"]
-        AEM[["activate_expert_master"]]
-        AEC[["activate_expert_current"]]
-    end
-
-    subgraph L3["Layer 3: Assignment Fact"]
-        SG320["320-ae_assignment_master.py"]
-        AAM[["ae_assignment_master"]]
-    end
-
-    subgraph L4["Layer 4: Engagement and Appointment Facts"]
-        SG430["430-ae_engagement_master.py"]
-        AEE[["ae_engagement_master"]]
-        SG440["440-ae_appointment_master.py"]
-        AAP[["ae_appointment_master"]]
-    end
-
-    SG ~~~ L1
-
-    LIFECYCLE --&gt; SG210
-    SG210 --&gt; AEM
-    SG210 --&gt; AEC
-
-    ASSIGNMENT_SRC --&gt; SG320
-    AEM -.-&gt;|"enriches via corp_id"| SG320
-    SG320 --&gt; AAM
-
-    AAM --&gt; SG430
-    DIM_ENG -.-&gt;|"enriches via engagement_id"| SG430
-    SG430 --&gt; AEE
-
-    APPT_FUNNEL --&gt; SG440
-    AEM -.-&gt;|"enriches via corp_id"| SG440
-    SG440 --&gt; AAP</code></pre>
+<p><img alt="Activate Experts Data Pipeline" src="../images/ae_flowchart.png" /></p>
 <hr />
 <h3 id="2025-11-glue-kit-mcp">2025-11: glue-kit-mcp<a class="headerlink" href="#2025-11-glue-kit-mcp" title="Permanent link">&para;</a></h3>
 <p><strong>Category</strong>: Development<br />
 <strong>Context</strong>: Created an MCP server to bring SuperGlue pipeline management and data lineage capabilities into AI assistant environments like Cursor and Claude Desktop. Enables natural language queries for pipeline dependencies and GitHub repository discovery.<br />
 <strong>Outcome</strong>: Developer productivity tool automating migration workflows and pipeline analysis.</p>
 <p>Architecture:
-<pre class="mermaid"><code>flowchart TB
-    A["Cursor IDE / Claude Desktop"] --&gt;|MCP Protocol| B["glue-kit-mcp"]
-    B --&gt;|HTTP/REST| C["Data Lineage API"]
-    B --&gt;|HTTP/REST| D["DataPipeline API"]</code></pre></p>
+<img alt="glue-kit-mcp architecture" src="../images/glue-kit-mcp.png" /></p>
+<p>Comparison between glue-kit-mcp and other tools:
+<img alt="glue-kit-mcp comparison" src="../images/glue-comparison.png" /></p>
 <hr />
 <h3 id="2025-10-optimize-sg10-to-sg20-workflow">2025-10: Optimize SG10 to SG20 Workflow<a class="headerlink" href="#2025-10-optimize-sg10-to-sg20-workflow" title="Permanent link">&para;</a></h3>
 <p><strong>Category</strong>: Research<br />
