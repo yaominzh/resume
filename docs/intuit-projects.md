@@ -24,55 +24,7 @@
 **Context**: Activate Experts (AE) has a **$250M** goal. AE is a key driver of the Assisted services input goal. Activate Experts markets FS Experts and offerings in local keyword search ("Taxes near me") across a variety of digital and physical channels (Google maps listings, paid search, digital media, mail, billboards, etc.). Local search is enabled by our planned retail footprint of 500 physical locations. Building data pipelines for the Activate Experts initiative to support expert-customer matching and engagement analytics. This involves designing fact tables for assignment, engagement, and appointment data across the tax expert ecosystem.  
 **Outcome**: Production-ready data pipelines powering Activate Experts dashboards and reporting.
 
-```mermaid
-flowchart TB
-    subgraph SG["SuperGlue Pipeline"]
-        PIPELINE[["AE Pipeline"]]
-    end
-
-    subgraph L1["Layer 1: Source Tables"]
-        LIFECYCLE[["dw_expert_lifecycle"]]
-        ASSIGNMENT_SRC[["dw_expert_assignment_summary"]]
-        DIM_ENG[["dim_engagement"]]
-        APPT_FUNNEL[["rpt_appointment_funnel"]]
-    end
-
-    subgraph L2["Layer 2: Expert Dimension"]
-        SG210["210-activate_expert_master.py"]
-        AEM[["activate_expert_master"]]
-        AEC[["activate_expert_current"]]
-    end
-
-    subgraph L3["Layer 3: Assignment Fact"]
-        SG320["320-ae_assignment_master.py"]
-        AAM[["ae_assignment_master"]]
-    end
-
-    subgraph L4["Layer 4: Engagement and Appointment Facts"]
-        SG430["430-ae_engagement_master.py"]
-        AEE[["ae_engagement_master"]]
-        SG440["440-ae_appointment_master.py"]
-        AAP[["ae_appointment_master"]]
-    end
-
-    SG ~~~ L1
-
-    LIFECYCLE --> SG210
-    SG210 --> AEM
-    SG210 --> AEC
-    
-    ASSIGNMENT_SRC --> SG320
-    AEM -.->|"enriches via corp_id"| SG320
-    SG320 --> AAM
-    
-    AAM --> SG430
-    DIM_ENG -.->|"enriches via engagement_id"| SG430
-    SG430 --> AEE
-    
-    APPT_FUNNEL --> SG440
-    AEM -.->|"enriches via corp_id"| SG440
-    SG440 --> AAP
-```
+![Activate Experts Data Pipeline](images/ae_flowchart.png)
 
 ---
 
@@ -83,13 +35,10 @@ flowchart TB
 **Outcome**: Developer productivity tool automating migration workflows and pipeline analysis.
 
 Architecture:
-```mermaid
-flowchart TB
-    A["Cursor IDE / Claude Desktop"] -->|MCP Protocol| B["glue-kit-mcp"]
-    B -->|HTTP/REST| C["Data Lineage API"]
-    B -->|HTTP/REST| D["DataPipeline API"]
-```
+![glue-kit-mcp architecture](images/glue-kit-mcp.png)
 
+Comparison between glue-kit-mcp and other tools:
+![glue-kit-mcp comparison](images/glue-comparison.png)
 ---
 
 ### 2025-10: Optimize SG10 to SG20 Workflow
