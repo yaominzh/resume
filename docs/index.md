@@ -16,7 +16,7 @@
 
 - Aug 2024 – present
 - Mountain View, CA
-- Consultant via Altrimetik; Pioneered ICS's first **AI**-enabled data automation blueprint combining **LLM**-based **SQL** analysis and self-service RAG pipelines.
+- Pioneered ICS's first **AI**-enabled data automation blueprint combining **LLM**-based **SQL** analysis and self-service RAG pipelines.
 - Deployed an **LLM**-powered **SQL**/**Python** analyzer automating dependency tracing and compliance remediation — reduced manual effort by 30%; build glue-kit-mcp MCP server to streamline the data lineage analysis and compliance remediation.
 - Migrated Intuit Academy core dashboards from Adobe **Analytics** to ClickStream(**Kafka** + **Spark**) and QlikSense
 - Led a team of 3, partnering with analytics, SuperGlue dev team and compliance leads to design 7216 data separation strategy and migrate 4k+ tables to compliance
